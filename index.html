@@ -205,8 +205,7 @@ body {
 .tab-btn.on { color: var(--blue-m); border-bottom-color: var(--blue-m); background: var(--surface); }
 .tab-btn:active { opacity: 0.6; }
 
-.tab-pane { display: none; padding: 14px; }
-.tab-pane.on { display: block; }
+.tab-panel { padding: 14px; }
 
 /* ── Milestone flag ── */
 .mflag {
@@ -742,7 +741,7 @@ function tab(n, totalTabs, i) {
   for (let j = 0; j < totalTabs; j++) {
     const p = document.getElementById('tp-' + n + '-' + j);
     const b = document.getElementById('tb-' + n + '-' + j);
-    if (p) { if (j === i) p.classList.add('on'); else p.classList.remove('on'); }
+    if (p) p.style.display = (j === i) ? 'block' : 'none';
     if (b) { if (j === i) b.classList.add('on'); else b.classList.remove('on'); }
   }
 }
@@ -809,13 +808,13 @@ function render() {
           </div>`).join('')}
       </div>`).join('');
 
-    const p0 = `<div id="tp-${w.n}-0" class="tab-panel on">
+    const p0 = `<div id="tp-${w.n}-0" class="tab-panel" style="display:block;">
       ${w.ms ? `<div class="mflag">&#127919; ${w.ms}</div>` : ''}
       ${clHtml}
     </div>`;
 
     // Modules panel — index 1 when present
-    const p1 = hasMods ? `<div id="tp-${w.n}-1" class="tab-panel">
+    const p1 = hasMods ? `<div id="tp-${w.n}-1" class="tab-panel" style="display:none;">
       ${w.mods.map(m => {
         const lp = LP[m.lp];
         return `<div class="mod-card">
@@ -835,7 +834,7 @@ function render() {
 
     // Info panel — index depends on whether modules tab exists
     const infoIdx = hasMods ? 2 : 1;
-    const pInfo = `<div id="tp-${w.n}-${infoIdx}" class="tab-panel">
+    const pInfo = `<div id="tp-${w.n}-${infoIdx}" class="tab-panel" style="display:none;">
       ${w.sk ? `<div class="skip-note">&#128260; Wat je kunt overslaan: ${w.sk}</div>` : ''}
       <div class="info-card" style="background:var(--blue-l);">
         <div class="info-lbl" style="color:var(--blue-d);">Extra lezen</div>
